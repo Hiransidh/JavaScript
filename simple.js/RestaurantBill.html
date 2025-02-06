@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Bill Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #ffffff;
+            border: 2px solid #d32f2f;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+        }
+        select, input, button {
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #d32f2f;
+            border-radius: 6px;
+            width: calc(100% - 24px);
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #d32f2f;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #b71c1c;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #b71c1c;
+            text-align: left;
+        }
+        .result label {
+            display: block;
+            margin: 5px 0 2px;
+        }
+        .result input {
+            background-color: #ffebee;
+            border: none;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Restaurant Bill Calculator</h1>
+        <select id="mealSelect">
+            <option value="">Select Meal</option>
+            <option value="150">Burger - ₹150</option>
+            <option value="200">Pizza - ₹200</option>
+            <option value="120">Pasta - ₹120</option>
+            <option value="180">Steak - ₹180</option>
+        </select>
+        <input type="number" id="quantity" placeholder="Enter Quantity" oninput="calculateBill()">
+        <div class="result">
+            <label for="mealPrice">Meal Price:</label>
+            <input type="text" id="mealPrice" readonly>
+            <label for="subtotal">Subtotal:</label>
+            <input type="text" id="subtotal" readonly>
+            <label for="tax">Tax (5%):</label>
+            <input type="text" id="tax" readonly>
+            <label for="serviceCharge">Service Charge (10%):</label>
+            <input type="text" id="serviceCharge" readonly>
+            <label for="totalBill">Total Bill:</label>
+            <input type="text" id="totalBill" readonly>
+        </div>
+    </div>
+
+    <script>
+        function calculateBill() {
+            var mealPrice = parseFloat(document.getElementById('mealSelect').value) || 0;
+            var quantity = parseFloat(document.getElementById('quantity').value) || 0;
+            var subtotal = mealPrice * quantity;
+            var tax = subtotal * 0.05; // 5% tax
+            var serviceCharge = subtotal * 0.10; // 10% service charge
+            var totalBill = subtotal + tax + serviceCharge;
+
+            // Display results
+            document.getElementById('mealPrice').value = '₹' + mealPrice.toFixed(2);
+            document.getElementById('subtotal').value = '₹' + subtotal.toFixed(2);
+            document.getElementById('tax').value = '₹' + tax.toFixed(2);
+            document.getElementById('serviceCharge').value = '₹' + serviceCharge.toFixed(2);
+            document.getElementById('totalBill').value = '₹' + totalBill.toFixed(2);
+        }
+    </script>
+</body>
+</html>
